@@ -6,6 +6,7 @@
  */
 
 const express = require('express');
+const apiRoutes = require('./routes/api');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -15,7 +16,7 @@ app.use(express.static('public'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to the Claude MCP Demo!')
+  res.send('Welcome to the Claude MCP Demo!');
 });
 
 app.get('/api/status', (req, res) => {
@@ -25,6 +26,9 @@ app.get('/api/status', (req, res) => {
     timestamp: new Date()
   });
 });
+
+// API Routes
+app.use('/api', apiRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -38,4 +42,5 @@ app.use((err, req, res, next) => {
 // Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log(`API available at http://localhost:${port}/api`);
 });
